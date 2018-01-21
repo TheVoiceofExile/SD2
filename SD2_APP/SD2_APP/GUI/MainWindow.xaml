@@ -15,6 +15,14 @@
         <RadioButton x:Name="RackIn" Content="Rack In" HorizontalAlignment="Left" Margin="205,225,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="RackOut" Content="Rack Out" HorizontalAlignment="Left" Margin="205,245,0,0" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="32,102,0,0" TextWrapping="Wrap" Text="Select a command via the radio buttons and hit 'Send Command' to send the command" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="370,141,0,0" TextWrapping="Wrap" Text="Use this box to test sending network communications" VerticalAlignment="Top" RenderTransformOrigin="0.294,0.312"/>
+        <Button Content="Send Text via Network" HorizontalAlignment="Left" Margin="360,260,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click_1"/>
+        <TextBox x:Name="ComText" HorizontalAlignment="Left" Height="23" Margin="360,191,0,0" TextWrapping="Wrap" Text="Text to send" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="NetworkIP" HorizontalAlignment="Left" Height="23" Margin="360,226,0,0" TextWrapping="Wrap" Text="Network to use" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="32,149,0,0" TextWrapping="Wrap" Text="Run as Client or Server?" VerticalAlignment="Top"/>
+        <RadioButton x:Name="ClientSelected" Content="Client" HorizontalAlignment="Left" Margin="32,179,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="ServerSelected" Content="Server" HorizontalAlignment="Left" Margin="32,205,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.235,-0.267"/>
+        <Button x:Name="InitializeNetworking" Content="Initialize Networking" HorizontalAlignment="Left" Margin="32,240,0,0" VerticalAlignment="Top" Width="113" Click="InitializeNetworking_Click"/>
 
     </Grid>
 </Window>

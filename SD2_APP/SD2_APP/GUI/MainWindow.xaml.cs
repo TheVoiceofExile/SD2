@@ -4,14 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
 
 namespace SD2_APP
 {
@@ -20,6 +14,9 @@ namespace SD2_APP
     /// </summary>
     public partial class MainWindow : Window
     {
+        NetComSender sendNet = new NetComSender();
+        NetComListener listenNet = new NetComListener();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -57,6 +54,33 @@ namespace SD2_APP
             {
                 MessageBox.Show("No command selected, please select a command.");
                 return;
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            sendNet.SendText(ComText.Text, NetworkIP.Text);
+        }
+
+        private void InitializeNetworking_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientSelected.IsChecked == true)
+            {
+                ClientWindow clientWindow = new ClientWindow();
+                App.Current.MainWindow = new ClientWindow();
+                this.Close();
+                clientWindow.Show();
+            }
+            else if (ServerSelected.IsChecked == true)
+            {
+                ServerWindow serverWindow = new ServerWindow();
+                App.Current.MainWindow = new ServerWindow();
+                this.Close();
+                serverWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Before initializing networking select the network type for this instance.");
             }
         }
     }
