@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,9 @@ namespace ServerApplication
             InitializeComponent();
             LoggedInAsLabel.Text = "Current User: " + AppBrain.brain.Username;
             AccessLevelTextBlock.Text = "Access Level: " + AppBrain.brain.AccessLevel;
+
+            IncorrectPasswordTextBlock.Visibility = Visibility.Hidden;
+            NewPasswordMismatchTextBlock.Visibility = Visibility.Hidden;
         }
 
         private void ControlPanelWindow(object sender, RoutedEventArgs e)
@@ -35,6 +39,30 @@ namespace ServerApplication
             MainWindow loginWindow = new MainWindow();
             loginWindow.Show();
             this.Close();
+        }
+
+        private void ChangePassword(object sender, RoutedEventArgs e)
+        {
+            StreamReader read = new StreamReader("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv");
+
+            string currentPass = CurrentPasswordTextBox.Text;
+            string newPass = NewPasswordTextBox.Text;
+            string confirmedNewPass = ConfirmedNewPasswordTextBox.Text;
+
+            if (newPass != confirmedNewPass)
+            {
+                NewPasswordMismatchTextBlock.Visibility = Visibility.Visible;
+                return;
+            }
+
+            string user = read.ReadLine();
+            string pass = read.ReadLine();
+            string accessLevel = read.ReadLine();
+
+            while ((user != null) && (pass != null) && (accessLevel != null))
+            {
+
+            }
         }
     }
 }

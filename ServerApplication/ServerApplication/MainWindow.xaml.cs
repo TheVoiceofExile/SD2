@@ -29,30 +29,28 @@ namespace ServerApplication
             string username = UsernameTextBox.Text;
             string password = PasswordTextBox.Text;
 
-            StreamReader read = new StreamReader("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.txt");
+            StreamReader read = new StreamReader("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv");
 
-            string validUser = read.ReadLine();
-            string validPass = read.ReadLine();
-            string accessLevel = read.ReadLine();
+            var credentials = read.ReadLine().Split(',');
 
-            while ((validUser != null) && (validPass != null) && (accessLevel != null))
+            while ((credentials[0] != null) && (credentials[1] != null) && (credentials[2] != null))
             {
-                if ((validUser == username) && (validPass == password))
+                if ((credentials[0] == username) && (credentials[1] == password))
                 {
                     MainControlWindow controlWindow = new MainControlWindow();
                     controlWindow.Show();
                     read.Close();
-                    AppBrain.brain.Username = validUser;
-                    AppBrain.brain.AccessLevel = accessLevel;
+                    AppBrain.brain.Username = credentials[0];
+                    AppBrain.brain.AccessLevel = credentials[2];
                     this.Close();
                     break;
                 }
                 else
                 {
                     InvalidCredentialsText.Visibility = Visibility.Visible;
-                    validUser = read.ReadLine();
-                    validPass = read.ReadLine();
-                    accessLevel = read.ReadLine();
+                    credentials[0] = read.ReadLine();
+                    credentials[1] = read.ReadLine();
+                    credentials[2] = read.ReadLine();
                 }
             }
         }
