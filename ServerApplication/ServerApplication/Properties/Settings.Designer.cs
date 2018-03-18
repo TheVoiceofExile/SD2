@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SD2_APP.Properties
+namespace ServerApplication.Properties
 {
 
 
