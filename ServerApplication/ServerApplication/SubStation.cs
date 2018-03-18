@@ -10,7 +10,7 @@ namespace ServerApplication
     {
         // Substations have switchgears
         List<Switchgear> switchgears = new List<Switchgear>();
-        string substationName = null;
+        private string substationName = null;
 
         public Substation(string name)
         {
@@ -18,5 +18,6 @@ namespace ServerApplication
         }
 
         public List<Switchgear> Switchgears { get => switchgears; set => switchgears = value; }
+        public string SubstationName { get => substationName; set => substationName = value; }
     }
 }

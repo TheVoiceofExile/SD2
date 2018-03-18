@@ -27,58 +27,74 @@ namespace ServerApplication
         public ManageSiteConfigurationWindow()
         {
             InitializeComponent();
+            LoggedInAsLabel.Text = "Current User: " + AppBrain.brain.Username;
+            AccessLevelTextBlock.Text = "Access Level: " + AppBrain.brain.AccessLevel;
             PopulateSiteConfiguration();
         }
 
         private void PopulateSiteConfiguration()
         {
-            int currentLine = 0;
-
-            var siteConfiguration = File.ReadAllLines(AppBrain.brain.SiteConfigurationFile);
-
-            string[] numSubStations = siteConfiguration[currentLine].Split(',');
+            var siteConfiguration = AppBrain.brain.SubStations;
 
             TreeViewItem substationMainHeader = new TreeViewItem
             {
-                Header = numSubStations[0]
+                Header = "Substations"
             };
             SiteConfigurationTreeView.Items.Add(substationMainHeader);
 
-            currentLine++;
-
-            for (int i = 0; i < Convert.ToInt32(numSubStations[1]); i++)
+            foreach (Substation ss in AppBrain.brain.SubStations)
             {
-                string[] substation = siteConfiguration[currentLine++].Split(',');
-
                 TreeViewItem substationHeader = new TreeViewItem
                 {
-                    Header = substation[0]
+                    Header = ss.SubstationName
                 };
                 substationMainHeader.Items.Add(substationHeader);
 
                 substations.Add(substationHeader);
 
-                for (int j = 0; j < Convert.ToInt32(substation[1]); j++)
+                foreach (Switchgear sg in ss.Switchgears)
                 {
-                    string[] switchgear = siteConfiguration[currentLine++].Split(',');
-
                     TreeViewItem switchgearHeader = new TreeViewItem
                     {
-                        Header = switchgear[0]
+                        Header = sg.SwitchgearName
                     };
                     substationHeader.Items.Add(switchgearHeader);
 
                     switchgears.Add(switchgearHeader);
 
-                    for (int k = 0; k < Convert.ToInt32(switchgear[1]); k++)
+                    foreach (Frame f in sg.Frames)
                     {
-                        string[] frame = siteConfiguration[currentLine++].Split(',');
-
                         TreeViewItem frameHeader = new TreeViewItem
                         {
-                            Header = frame[0] + ":" + frame[1]
+                            Header = f.FrameName
                         };
                         switchgearHeader.Items.Add(frameHeader);
+
+                        foreach (CircuitBreaker cb in f.CircuitBreakers)
+                        {
+                            TreeViewItem circuitBreakerHeader = new TreeViewItem
+                            {
+                                Header = cb.BreakerName
+                            };
+                            frameHeader.Items.Add(circuitBreakerHeader);
+
+                            if (cb.IsTopComponent)
+                            {
+                                TreeViewItem circuitBreakerLocationHeader = new TreeViewItem
+                                {
+                                    Header = "Location: Top"
+                                };
+                                circuitBreakerHeader.Items.Add(circuitBreakerLocationHeader);
+                            }
+                            else
+                            {
+                                TreeViewItem circuitBreakerLocationHeader = new TreeViewItem
+                                {
+                                    Header = "Location: Bottom"
+                                };
+                                circuitBreakerHeader.Items.Add(circuitBreakerLocationHeader);
+                            }
+                        }
                     }
                 }
             }
@@ -100,9 +116,149 @@ namespace ServerApplication
 
         private void RemoveSiteComponent(object sender, RoutedEventArgs e)
         {
-            var siteConfiguration = File.ReadAllLines(AppBrain.brain.SiteConfigurationFile);
+            List<TreeViewItem> parents = new List<TreeViewItem>();
 
+            TreeViewItem selected = SiteConfigurationTreeView.SelectedItem as TreeViewItem;
 
+            parents = GetParentsOfSelected(parents, selected);
+
+            if (parents.Count == 0)
+            {
+                AppBrain.brain.SubStations = new List<Substation>();
+                UpdateSiteConfiguration();
+                return;
+            }
+
+            parents.Reverse();
+
+            // Once we remove whatever we're after use this flag to break out of all the loops
+            bool removedSelected = false;
+
+            // Whoever finds this giant mess and has to work on it, I'm sorry.
+            foreach (Substation ss in AppBrain.brain.SubStations)
+            {
+                if (removedSelected)
+                    break;
+
+                if (ss.SubstationName == selected.Header.ToString()) // If we're removing a substation and the name matches, remove it and break out
+                {
+                    AppBrain.brain.SubStations.Remove(ss);
+                    removedSelected = true;
+                    break;
+                }
+
+                if (ss.SubstationName == parents[1].Header.ToString()) // If we're not deleting a substation but it is a parent of what we're deleting, we must go deeper
+                {
+                    foreach (Switchgear sg in ss.Switchgears)
+                    {
+                        if (removedSelected)
+                            break;
+
+                        if (sg.SwitchgearName == selected.Header.ToString()) // If we're removing a switchgear from a substation and the name matches, remove it and break out
+                        {
+                            ss.Switchgears.Remove(sg);
+                            removedSelected = true;
+                            break;
+                        }
+
+                        if (sg.SwitchgearName == parents[2].Header.ToString()) // If we're not deleting a switchgear but it's a parent of what we're deleting, we must go deeper
+                        {
+                            foreach (Frame f in sg.Frames)
+                            {
+                                if (removedSelected)
+                                    break;
+
+                                if (f.FrameName == selected.Header.ToString()) // If we're removing a frame from a switchgear and the name matches, remove it and break out
+                                {
+                                    sg.Frames.Remove(f);
+                                    removedSelected = true;
+                                    break;
+                                }
+
+                                if (f.FrameName == parents[3].Header.ToString()) //  If we're not deleting a frame but it's a parent of what we're deleting, we must go deeper
+                                {
+                                    foreach (CircuitBreaker cb in f.CircuitBreakers)
+                                    {
+                                        if (cb.BreakerName == parents[4].Header.ToString()) // IF we're removing a circuit breaker from a frame and the name matches, remove it and break out
+                                        {
+                                            f.CircuitBreakers.Remove(cb);
+                                            removedSelected = true;
+                                            break;
+                                        }
+                                        // If we reach here and haven't deleted something/broken out, someone is probably hacking the application
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            UpdateSiteConfiguration();
+            PopulateSiteConfiguration();
+        }
+
+        ////////////////////////////////////////
+        // Invalid if selected is Bruce Wayne //
+        ////////////////////////////////////////
+        private List<TreeViewItem> GetParentsOfSelected(List<TreeViewItem> parents, TreeViewItem selected)
+        {
+            DependencyObject selectedParent = VisualTreeHelper.GetParent(selected);
+
+            ItemsControl currentParent;
+
+            TreeViewItem parent = selected;
+
+            while (parent.Header.ToString() != "Substations")
+            {
+                while (!(selectedParent is TreeViewItem || selectedParent is TreeView))
+                {
+                    selectedParent = VisualTreeHelper.GetParent(selectedParent);
+                }
+
+                currentParent = selectedParent as ItemsControl;
+
+                parent = currentParent as TreeViewItem;
+
+                selectedParent = VisualTreeHelper.GetParent(parent);
+
+                parents.Add(parent);
+            }
+
+            return parents;
+        }
+
+        private void UpdateSiteConfiguration()
+        {
+            List<string> newSiteConfiguration = new List<string>
+            {
+                "Substations," + AppBrain.brain.SubStations.Count
+            };
+
+            foreach (Substation ss in AppBrain.brain.SubStations)
+            {
+                newSiteConfiguration.Add(ss.SubstationName + "," + ss.Switchgears.Count);
+
+                foreach (Switchgear sg in ss.Switchgears)
+                {
+                    newSiteConfiguration.Add(sg.SwitchgearName + "," + sg.Frames.Count);
+
+                    foreach (Frame f in sg.Frames)
+                    {
+                        newSiteConfiguration.Add(f.FrameName + "," + f.CircuitBreakers.Count);
+
+                        foreach (CircuitBreaker cb in f.CircuitBreakers)
+                        {
+                            if (cb.IsTopComponent)
+                                newSiteConfiguration.Add(cb.BreakerName + ",Top");
+                            else
+                                newSiteConfiguration.Add(cb.BreakerName + ",Bottom");
+                        }
+                    }
+                }
+            }
+
+            File.WriteAllLines(AppBrain.brain.SiteConfigurationFile, newSiteConfiguration);
         }
     }
 }

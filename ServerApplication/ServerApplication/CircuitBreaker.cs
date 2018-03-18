@@ -29,5 +29,6 @@ namespace ServerApplication
         public bool IsRackedIn { get => isRackedIn; set => isRackedIn = value; }
         public bool IsOpen { get => isOpen; set => isOpen = value; }
         public bool IsTopComponent { get => isTopComponent; set => isTopComponent = value; }
+        public string BreakerName { get => breakerName; set => breakerName = value; }
     }
 }

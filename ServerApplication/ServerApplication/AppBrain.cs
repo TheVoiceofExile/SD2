@@ -21,7 +21,7 @@ namespace ServerApplication
 
         private AppBrain()
         {
-
+            // Hey don't add stuff here because race condition
         }
 
         public void LoadSiteConfiguration()
@@ -60,7 +60,6 @@ namespace ServerApplication
                 }
                 listOfSubstations.Add(ss);
             }
-            Console.Write("okay");
         }
 
         public string Username { get => username; set => username = value; }

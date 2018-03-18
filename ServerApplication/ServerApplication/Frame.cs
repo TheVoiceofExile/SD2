@@ -18,5 +18,6 @@ namespace ServerApplication
         }
 
         public List<CircuitBreaker> CircuitBreakers { get => circuitBreakers; set => circuitBreakers = value; }
+        public string FrameName { get => frameName; set => frameName = value; }
     }
 }

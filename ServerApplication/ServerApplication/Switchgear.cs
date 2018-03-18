@@ -18,5 +18,6 @@ namespace ServerApplication
         }
 
         public List<Frame> Frames { get => frames; set => frames = value; }
+        public string SwitchgearName { get => switchgearName; set => switchgearName = value; }
     }
 }
