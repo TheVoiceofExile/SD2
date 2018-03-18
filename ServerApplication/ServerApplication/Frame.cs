@@ -10,10 +10,13 @@ namespace ServerApplication
     {
         // Frames hold circuit breakers, sometimes
         List<CircuitBreaker> circuitBreakers = new List<CircuitBreaker>();
+        string frameName = null;
 
-        public Frame()
+        public Frame(string name)
         {
-
+            frameName = name;
         }
+
+        public List<CircuitBreaker> CircuitBreakers { get => circuitBreakers; set => circuitBreakers = value; }
     }
 }

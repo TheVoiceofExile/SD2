@@ -11,10 +11,19 @@ namespace ServerApplication
         private bool isRackedIn = false;
         private bool isOpen = false;
         private bool isTopComponent = false;
+        private string breakerName = null;
 
-        public CircuitBreaker()
+        public CircuitBreaker(string name, string location)
         {
-
+            breakerName = name;
+            if (location == "Top")
+            {
+                isTopComponent = true;
+            }
+            else
+            {
+                isTopComponent = false;
+            }
         }
 
         public bool IsRackedIn { get => isRackedIn; set => isRackedIn = value; }

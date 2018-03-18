@@ -36,5 +36,12 @@ namespace ServerApplication
             accountWindow.Show();
             this.Close();
         }
+
+        private void SiteConfiguration(object sender, RoutedEventArgs e)
+        {
+            ManageSiteConfigurationWindow siteConfigWindow = new ManageSiteConfigurationWindow(); ;
+            siteConfigWindow.Show();
+            this.Close();
+        }
     }
 }

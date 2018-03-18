@@ -1,0 +1,18 @@
+﻿Substations,2
+Substation 1,2
+Switchgear 1,3
+Frame 1,2
+Breaker 1,Top
+Breaker 2,Bottom
+Frame 2,1
+Breaker 1,Bottom
+Switchgear 2,2
+Frame 1,1
+Breaker 1,Bottom
+Frame 2,2
+Breaker 1,Bottom
+Breaker 2,Top
+Substation 2,1
+Switchgear 1,1
+Frame 1,1
+Breaker 1,Top

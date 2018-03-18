@@ -10,10 +10,13 @@ namespace ServerApplication
     {
         // Switchgears are made of frames
         List<Frame> frames = new List<Frame>();
+        string switchgearName = null;
 
-        public Switchgear()
+        public Switchgear(string name)
         {
-
+            switchgearName = name;
         }
+
+        public List<Frame> Frames { get => frames; set => frames = value; }
     }
 }

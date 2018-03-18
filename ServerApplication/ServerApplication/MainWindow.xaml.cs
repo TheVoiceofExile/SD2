@@ -45,6 +45,7 @@ namespace ServerApplication
                     MainControlWindow controlWindow = new MainControlWindow();
                     controlWindow.Show();
                     this.Close();
+                    AppBrain.brain.LoadSiteConfiguration();
                     break;
                 }
                 else

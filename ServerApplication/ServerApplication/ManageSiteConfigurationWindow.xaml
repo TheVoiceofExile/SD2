@@ -1,17 +1,18 @@
-﻿<Window x:Class="ServerApplication.MainControlWindow"
+﻿<Window x:Class="ServerApplication.ManageSiteConfigurationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerApplication"
         mc:Ignorable="d"
-        Title="MainControlWindow" Height="900" Width="1600">
+        Title="ManageSiteConfigurationWindow" Height="900" Width="1600">
     <Grid>
-        <TextBlock x:Name="MainControlWindowTitle" HorizontalAlignment="Left" Margin="1280,10,0,0" TextWrapping="Wrap" Text="MAIN CONTROL WINDOW" VerticalAlignment="Top" Height="40" Width="302" FontSize="24" TextAlignment="Center"/>
+        <TextBlock x:Name="ManageAccountWindowTitle" HorizontalAlignment="Left" Margin="1255,10,0,0" TextWrapping="Wrap" Text="MANAGE ACCOUNT WINDOW" VerticalAlignment="Top" Height="40" Width="327" FontSize="24" TextAlignment="Center"/>
         <TextBlock x:Name="LoggedInAsLabel" HorizontalAlignment="Left" Margin="1280,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="302" FontSize="20" Text="Logged In As"/>
         <Button x:Name="LogoutButton" Content="Logout" HorizontalAlignment="Left" Margin="1445,175,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="Logout"/>
         <TextBlock x:Name="AccessLevelTextBlock" HorizontalAlignment="Left" Margin="1280,125,0,0" TextWrapping="Wrap" Text="Access Level: 0" VerticalAlignment="Top" Height="45" Width="302" FontSize="20"/>
-        <Button x:Name="ManageAccountButton" Content="Manage Account" HorizontalAlignment="Left" Margin="1280,175,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="ManageAccount"/>
-        <Button x:Name="ManageSiteConfigurationButton" Content="Manage Site Configuration" HorizontalAlignment="Left" Margin="320,160,0,0" VerticalAlignment="Top" Width="255" Height="40" FontSize="20" Click="SiteConfiguration"/>
+        <Button x:Name="ControlPanelButton" Content="Control Panel" HorizontalAlignment="Left" Margin="1280,175,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="ControlPanelWindow"/>
+        <TreeView x:Name="SiteConfigurationTreeView" HorizontalAlignment="Left" Height="721" Margin="85,79,0,0" VerticalAlignment="Top" Width="475"/>
+        <Button x:Name="RemoveButton" Content="Remove Item" HorizontalAlignment="Left" Margin="640,158,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="RemoveSiteComponent"/>
     </Grid>
 </Window>
