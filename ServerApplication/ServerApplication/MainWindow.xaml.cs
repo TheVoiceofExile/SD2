@@ -26,31 +26,30 @@ namespace ServerApplication
 
         private void LoginAttempt(object sender, RoutedEventArgs e)
         {
+            // Grab entered credentials to verify
             string username = UsernameTextBox.Text;
             string password = PasswordTextBox.Text;
 
-            StreamReader read = new StreamReader("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv");
+            // Read in our credentials file
+            var credentials = File.ReadAllLines("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv");
 
-            var credentials = read.ReadLine().Split(',');
-
-            while ((credentials[0] != null) && (credentials[1] != null) && (credentials[2] != null))
+            // Go through each user in the file and check entered credentials against it, log in if found throw error if not
+            for (int i = 0; i < credentials.Length; i++)
             {
-                if ((credentials[0] == username) && (credentials[1] == password))
+                string[] userCredentials = credentials[i].Split(',');
+
+                if ((userCredentials[0] == username) && (userCredentials[1] == password))
                 {
+                    AppBrain.brain.Username = userCredentials[0];
+                    AppBrain.brain.AccessLevel = userCredentials[2];
                     MainControlWindow controlWindow = new MainControlWindow();
                     controlWindow.Show();
-                    read.Close();
-                    AppBrain.brain.Username = credentials[0];
-                    AppBrain.brain.AccessLevel = credentials[2];
                     this.Close();
                     break;
                 }
                 else
                 {
                     InvalidCredentialsText.Visibility = Visibility.Visible;
-                    credentials[0] = read.ReadLine();
-                    credentials[1] = read.ReadLine();
-                    credentials[2] = read.ReadLine();
                 }
             }
         }

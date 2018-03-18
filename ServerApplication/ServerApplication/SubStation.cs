@@ -8,6 +8,7 @@ namespace ServerApplication
 {
     public class SubStation
     {
+        // Substations have switchgears
         List<Switchgear> switchgears = new List<Switchgear>();
 
         public SubStation()

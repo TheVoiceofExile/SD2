@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace ServerApplication
 {
-    /// <summary>
-    /// Interaction logic for MainControlWindow.xaml
-    /// </summary>
     public partial class MainControlWindow : Window
     {
         public MainControlWindow()

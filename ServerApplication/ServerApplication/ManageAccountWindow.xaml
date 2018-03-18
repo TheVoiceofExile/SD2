@@ -12,14 +12,26 @@
         <Button x:Name="LogoutButton" Content="Logout" HorizontalAlignment="Left" Margin="1445,175,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="Logout"/>
         <TextBlock x:Name="AccessLevelTextBlock" HorizontalAlignment="Left" Margin="1280,125,0,0" TextWrapping="Wrap" Text="Access Level: 0" VerticalAlignment="Top" Height="45" Width="302" FontSize="20"/>
         <Button x:Name="ControlPanelButton" Content="Control Panel" HorizontalAlignment="Left" Margin="1280,175,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="ControlPanelWindow"/>
-        <TextBlock x:Name="CurrentPasswordTextBlock" HorizontalAlignment="Left" Margin="641,320,0,0" TextWrapping="Wrap" Text="Current Password:" VerticalAlignment="Top" Height="40" Width="179" FontSize="22"/>
-        <TextBlock x:Name="NewPasswordTextBlock" HorizontalAlignment="Left" Margin="641,365,0,0" TextWrapping="Wrap" Text="New Password:" VerticalAlignment="Top" Height="40" Width="179" FontSize="22"/>
-        <TextBlock x:Name="ConfirmPasswordTextBlock" HorizontalAlignment="Left" Margin="641,410,0,0" TextWrapping="Wrap" Text="Confirm New Password:" VerticalAlignment="Top" Height="40" Width="234" FontSize="22"/>
-        <TextBox x:Name="CurrentPasswordTextBox" HorizontalAlignment="Left" Height="40" Margin="900,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
-        <TextBox x:Name="NewPasswordTextBox" HorizontalAlignment="Left" Height="40" Margin="900,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
-        <TextBox x:Name="ConfirmedNewPasswordTextBox" HorizontalAlignment="Left" Height="40" Margin="900,410,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
-        <Button x:Name="ChangePasswordButton" Content="Change Password" HorizontalAlignment="Left" Margin="900,600,0,0" VerticalAlignment="Top" Width="180" Height="40" FontSize="20" Click="ChangePassword"/>
-        <TextBlock x:Name="IncorrectPasswordTextBlock" HorizontalAlignment="Left" Margin="900,479,0,0" TextWrapping="Wrap" Text="Incorrect Password" VerticalAlignment="Top" Height="36" Width="220" FontSize="22"/>
-        <TextBlock x:Name="NewPasswordMismatchTextBlock" HorizontalAlignment="Left" Margin="900,520,0,0" TextWrapping="Wrap" Text="New Passwords Mismatch" VerticalAlignment="Top" Height="36" Width="265" FontSize="22"/>
+        <TextBlock x:Name="CurrentPasswordTextBlock" HorizontalAlignment="Left" Margin="326,442,0,0" TextWrapping="Wrap" Text="Current Password:" VerticalAlignment="Top" Height="40" Width="179" FontSize="22"/>
+        <TextBlock x:Name="NewPasswordTextBlock" HorizontalAlignment="Left" Margin="326,487,0,0" TextWrapping="Wrap" Text="New Password:" VerticalAlignment="Top" Height="40" Width="179" FontSize="22"/>
+        <TextBlock x:Name="ConfirmPasswordTextBlock" HorizontalAlignment="Left" Margin="326,532,0,0" TextWrapping="Wrap" Text="Confirm New Password:" VerticalAlignment="Top" Height="40" Width="234" FontSize="22"/>
+        <TextBox x:Name="CurrentPasswordTextBox" HorizontalAlignment="Left" Height="40" Margin="585,442,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
+        <TextBox x:Name="NewPasswordTextBox" HorizontalAlignment="Left" Height="40" Margin="585,487,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
+        <TextBox x:Name="ConfirmedNewPasswordTextBox" HorizontalAlignment="Left" Height="40" Margin="585,532,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
+        <Button x:Name="ChangePasswordButton" Content="Change Password" HorizontalAlignment="Left" Margin="640,603,0,0" VerticalAlignment="Top" Width="180" Height="40" FontSize="20" Click="ChangePassword"/>
+        <TextBlock x:Name="IncorrectPasswordTextBlock" HorizontalAlignment="Left" Margin="920,442,0,0" TextWrapping="Wrap" Text="Incorrect Password" VerticalAlignment="Top" Height="36" Width="220" FontSize="22"/>
+        <TextBlock x:Name="NewPasswordMismatchTextBlock" HorizontalAlignment="Left" Margin="920,508,0,0" TextWrapping="Wrap" Text="New Passwords Mismatch" VerticalAlignment="Top" Height="36" Width="265" FontSize="22"/>
+        <TextBox x:Name="UserModifyAddAccessLevelTextBox" HorizontalAlignment="Left" Height="40" Margin="585,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
+        <TextBlock x:Name="UserModifyAddAccessLevelTextBlock" HorizontalAlignment="Left" Margin="326,168,0,0" TextWrapping="Wrap" Text="Set User's Access Level:" VerticalAlignment="Top" Height="40" Width="234" FontSize="22"/>
+        <TextBlock x:Name="UserToAdjustAccessLevelTextBlock" HorizontalAlignment="Left" Margin="326,123,0,0" TextWrapping="Wrap" Text="User To Modify or Add:" VerticalAlignment="Top" Height="40" Width="224" FontSize="22"/>
+        <TextBox x:Name="UserToModifyAddTextBox" HorizontalAlignment="Left" Height="40" Margin="585,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
+        <TextBlock x:Name="ModifyAddUserPasswordTextBlock" HorizontalAlignment="Left" Margin="326,213,0,0" TextWrapping="Wrap" Text="Set User's Password:" VerticalAlignment="Top" Height="40" Width="199" FontSize="22"/>
+        <TextBox x:Name="ModifyAddUserPasswordTextBox" HorizontalAlignment="Left" Height="40" Margin="585,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="20"/>
+        <TextBlock x:Name="ChangeOwnPasswordTextBlock" HorizontalAlignment="Left" Margin="560,382,0,0" TextWrapping="Wrap" Text="Change My Password" VerticalAlignment="Top" Height="55" Width="345" FontSize="36"/>
+        <TextBlock x:Name="ModifyAddUserTextBlock" HorizontalAlignment="Left" Margin="560,27,0,0" TextWrapping="Wrap" Text="Modify or Add Another User" VerticalAlignment="Top" Height="91" Width="345" FontSize="36" TextAlignment="Center"/>
+        <Button x:Name="ModifyAddUserButton" Content="Modify or Add User" HorizontalAlignment="Left" Margin="640,292,0,0" VerticalAlignment="Top" Width="180" Height="45" FontSize="20" Click="ModifyOrAddUser"/>
+        <TextBlock x:Name="NoUserEnteredError" HorizontalAlignment="Left" Margin="920,123,0,0" TextWrapping="Wrap" Text="Enter a user to add or modify" VerticalAlignment="Top" Height="34" Width="285" FontSize="22"/>
+        <TextBlock x:Name="TryingToModifySelfError" HorizontalAlignment="Left" Margin="920,162,0,0" TextWrapping="Wrap" Text="Cannot modify own values" VerticalAlignment="Top" RenderTransformOrigin="0,0.75" Height="38" Width="285" FontSize="22"/>
+        <TextBlock x:Name="NoModificationsMadeTextBlock" HorizontalAlignment="Left" Margin="920,205,0,0" TextWrapping="Wrap" Text="Enter a credential to modify" VerticalAlignment="Top" RenderTransformOrigin="0,0.75" Height="38" Width="285" FontSize="22"/>
     </Grid>
 </Window>

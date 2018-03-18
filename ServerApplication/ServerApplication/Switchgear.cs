@@ -8,6 +8,7 @@ namespace ServerApplication
 {
     public class Switchgear
     {
+        // Switchgears are made of frames
         List<Frame> frames = new List<Frame>();
 
         public Switchgear()

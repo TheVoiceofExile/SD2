@@ -8,6 +8,7 @@ namespace ServerApplication
 {
     public class Frame
     {
+        // Frames hold circuit breakers, sometimes
         List<CircuitBreaker> circuitBreakers = new List<CircuitBreaker>();
 
         public Frame()
