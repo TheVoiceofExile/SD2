@@ -19,8 +19,8 @@ namespace ServerApplication
         public ManageAccountWindow()
         {
             InitializeComponent();
-            LoggedInAsLabel.Text = "Current User: " + AppBrain.brain.username;
-            AccessLevelTextBlock.Text = "Access Level: " + AppBrain.brain.accessLevel;
+            LoggedInAsLabel.Text = "Current User: " + AppBrain.brain.Username;
+            AccessLevelTextBlock.Text = "Access Level: " + AppBrain.brain.AccessLevel;
         }
 
         private void ControlPanelWindow(object sender, RoutedEventArgs e)

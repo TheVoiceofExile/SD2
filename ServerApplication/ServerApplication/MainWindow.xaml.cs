@@ -39,11 +39,11 @@ namespace ServerApplication
             {
                 if ((validUser == username) && (validPass == password))
                 {
-                    MainControlWindow controlWindow = new MainControlWindow(username, accessLevel);
+                    MainControlWindow controlWindow = new MainControlWindow();
                     controlWindow.Show();
                     read.Close();
-                    AppBrain.brain.username = validUser;
-                    AppBrain.brain.accessLevel = accessLevel;
+                    AppBrain.brain.Username = validUser;
+                    AppBrain.brain.AccessLevel = accessLevel;
                     this.Close();
                     break;
                 }

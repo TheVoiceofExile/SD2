@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CircuitBreaker.cs" />
+    <Compile Include="Frame.cs" />
+    <Compile Include="SubStation.cs" />
+    <Compile Include="Switchgear.cs" />
     <Page Include="MainControlWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -66,6 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AppBrain.cs" />
     <Compile Include="MainControlWindow.xaml.cs">
       <DependentUpon>MainControlWindow.xaml</DependentUpon>
     </Compile>

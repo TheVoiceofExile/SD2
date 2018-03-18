@@ -10,12 +10,18 @@ namespace ServerApplication
     {
         public static AppBrain brain = new AppBrain();
 
-        public string username = null;
-        public string accessLevel = null;
+        private string username = null;
+        private string accessLevel = null;
+
+        private List<SubStation> subStations = new List<SubStation>();
 
         private AppBrain()
         {
 
         }
+
+        public string Username { get => username; set => username = value; }
+        public string AccessLevel { get => accessLevel; set => accessLevel = value; }
+        public List<SubStation> SubStations { get => subStations; set => subStations = value; }
     }
 }
