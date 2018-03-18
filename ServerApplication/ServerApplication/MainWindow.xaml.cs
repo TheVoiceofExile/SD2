@@ -31,7 +31,7 @@ namespace ServerApplication
             string password = PasswordTextBox.Text;
 
             // Read in our credentials file
-            var credentials = File.ReadAllLines("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv");
+            var credentials = File.ReadAllLines(AppBrain.brain.UserCredentialsFile);
 
             // Go through each user in the file and check entered credentials against it, log in if found throw error if not
             for (int i = 0; i < credentials.Length; i++)

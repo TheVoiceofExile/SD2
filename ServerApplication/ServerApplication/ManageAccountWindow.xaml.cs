@@ -73,7 +73,7 @@ namespace ServerApplication
             }
 
             // Grab our user credentials file
-            var credentials = File.ReadAllLines("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv");
+            var credentials = File.ReadAllLines(AppBrain.brain.UserCredentialsFile);
 
             // Go through each user in the file, find the one that matches this user, validate their entered current
             // password actually matches their current password, if it does then update their password.
@@ -91,7 +91,7 @@ namespace ServerApplication
             }
 
             // Save changes to credentials file
-            File.WriteAllLines("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv", credentials);
+            File.WriteAllLines(AppBrain.brain.UserCredentialsFile, credentials);
         }
 
         private void ModifyOrAddUser(object sender, RoutedEventArgs e)
@@ -121,7 +121,7 @@ namespace ServerApplication
             }
 
             // Grab our user credentials file
-            var credentials = File.ReadAllLines("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv");
+            var credentials = File.ReadAllLines(AppBrain.brain.UserCredentialsFile);
             bool userExists = false;
 
             // Check if the user exists, if they do update the appropriate values
@@ -157,7 +157,7 @@ namespace ServerApplication
             }
 
             // Save the changes
-            File.WriteAllLines("S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv", credentials);
+            File.WriteAllLines(AppBrain.brain.UserCredentialsFile, credentials);
         }
     }
 }
