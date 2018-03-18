@@ -14,29 +14,26 @@ using System.Windows.Shapes;
 
 namespace ServerApplication
 {
-    /// <summary>
-    /// Interaction logic for MainControlWindow.xaml
-    /// </summary>
-    public partial class MainControlWindow : Window
+    public partial class ManageAccountWindow : Window
     {
-        public MainControlWindow()
+        public ManageAccountWindow()
         {
             InitializeComponent();
             LoggedInAsLabel.Text = "Current User: " + AppBrain.brain.username;
             AccessLevelTextBlock.Text = "Access Level: " + AppBrain.brain.accessLevel;
         }
 
+        private void ControlPanelWindow(object sender, RoutedEventArgs e)
+        {
+            MainControlWindow controlPanelWindow = new MainControlWindow();
+            controlPanelWindow.Show();
+            this.Close();
+        }
+
         private void Logout(object sender, RoutedEventArgs e)
         {
             MainWindow loginWindow = new MainWindow();
             loginWindow.Show();
-            this.Close();
-        }
-
-        private void ManageAccount(object sender, RoutedEventArgs e)
-        {
-            ManageAccountWindow accountWindow = new ManageAccountWindow();
-            accountWindow.Show();
             this.Close();
         }
     }

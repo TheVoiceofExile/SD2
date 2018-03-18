@@ -33,14 +33,17 @@ namespace ServerApplication
 
             string validUser = read.ReadLine();
             string validPass = read.ReadLine();
+            string accessLevel = read.ReadLine();
 
-            while ((validUser != null) && (validPass != null))
+            while ((validUser != null) && (validPass != null) && (accessLevel != null))
             {
                 if ((validUser == username) && (validPass == password))
                 {
-                    MainControlWindow controlWindow = new MainControlWindow(username);
+                    MainControlWindow controlWindow = new MainControlWindow(username, accessLevel);
                     controlWindow.Show();
                     read.Close();
+                    AppBrain.brain.username = validUser;
+                    AppBrain.brain.accessLevel = accessLevel;
                     this.Close();
                     break;
                 }
@@ -49,6 +52,7 @@ namespace ServerApplication
                     InvalidCredentialsText.Visibility = Visibility.Visible;
                     validUser = read.ReadLine();
                     validPass = read.ReadLine();
+                    accessLevel = read.ReadLine();
                 }
             }
         }
