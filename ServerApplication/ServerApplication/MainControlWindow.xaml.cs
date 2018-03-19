@@ -21,6 +21,11 @@ namespace ServerApplication
             InitializeComponent();
             LoggedInAsLabel.Text = "Current User: " + AppBrain.brain.Username;
             AccessLevelTextBlock.Text = "Access Level: " + AppBrain.brain.AccessLevel;
+
+            if (AppBrain.brain.AccessLevel != "2" && AppBrain.brain.AccessLevel != "3")
+            {
+                ManageSiteConfigurationButton.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Logout(object sender, RoutedEventArgs e)
