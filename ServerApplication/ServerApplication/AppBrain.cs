@@ -53,7 +53,7 @@ namespace ServerApplication
                         for (int w = 0; w < Convert.ToInt32(frame[1]); w++)
                         {
                             string[] breaker = siteConfiguration[currentLine++].Split(',');
-                            CircuitBreaker cb = new CircuitBreaker(breaker[0], breaker[1]);
+                            CircuitBreaker cb = new CircuitBreaker(breaker[0], breaker[1], breaker[2]);
                             f.CircuitBreakers.Add(cb);
                         }
                     }

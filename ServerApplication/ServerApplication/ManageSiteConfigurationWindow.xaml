@@ -13,6 +13,22 @@
         <TextBlock x:Name="AccessLevelTextBlock" HorizontalAlignment="Left" Margin="1280,125,0,0" TextWrapping="Wrap" Text="Access Level: 0" VerticalAlignment="Top" Height="45" Width="302" FontSize="20"/>
         <Button x:Name="ControlPanelButton" Content="Control Panel" HorizontalAlignment="Left" Margin="1280,175,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="ControlPanelWindow"/>
         <TreeView x:Name="SiteConfigurationTreeView" HorizontalAlignment="Left" Height="721" Margin="85,79,0,0" VerticalAlignment="Top" Width="475"/>
-        <Button x:Name="RemoveButton" Content="Remove Item" HorizontalAlignment="Left" Margin="640,158,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="RemoveSiteComponent"/>
+        <Button x:Name="RemoveButton" Content="Remove Component" HorizontalAlignment="Left" Margin="640,158,0,0" VerticalAlignment="Top" Width="154" Height="42" FontSize="16" Click="RemoveSiteComponent"/>
+        <Button x:Name="AddSubstationButton" Content="Add Substation" HorizontalAlignment="Left" Margin="812,490,0,0" VerticalAlignment="Top" Width="154" Height="42" FontSize="16" Click="AddSubstation"/>
+        <Button x:Name="AddSwitchgearButton" Content="Add Switchgear" HorizontalAlignment="Left" Margin="1266,490,0,0" VerticalAlignment="Top" Width="154" Height="42" FontSize="16" Click="AddSwitchgear"/>
+        <Button x:Name="AddFrameButton" Content="Add Frame" HorizontalAlignment="Left" Margin="812,742,0,0" VerticalAlignment="Top" Width="154" Height="42" FontSize="16" Click="AddFrame"/>
+        <Button x:Name="AddCircuitBreakerButton" Content="Add Circuit Breaker" HorizontalAlignment="Left" Margin="1266,742,0,0" VerticalAlignment="Top" Width="154" Height="42" FontSize="16" Click="AddCircuitBreaker"/>
+        <TextBlock x:Name="SubstationNameTextBlock" HorizontalAlignment="Left" Margin="682,440,0,0" TextWrapping="Wrap" Text="Substation Name:" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="SubstationNameTextBox" HorizontalAlignment="Left" Height="34" Margin="812,440,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" FontSize="16"/>
+        <TextBlock x:Name="SwitchgearNameTextBlock" HorizontalAlignment="Left" Margin="1125,440,0,0" TextWrapping="Wrap" Text="Switchgear Name:" VerticalAlignment="Top" FontSize="16" Width="136"/>
+        <TextBox x:Name="SwitchgearNameTextBox" HorizontalAlignment="Left" Height="34" Margin="1266,440,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" FontSize="16"/>
+        <TextBlock x:Name="FrameNameTextBlock" HorizontalAlignment="Left" Margin="713,684,0,0" TextWrapping="Wrap" Text="Frame Name:" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="FrameNameTextBox" HorizontalAlignment="Left" Height="34" Margin="812,684,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" FontSize="16"/>
+        <TextBlock x:Name="CircuitBreakerNameTextBlock" HorizontalAlignment="Left" Margin="1108,632,0,0" TextWrapping="Wrap" Text="Circuit Breaker Name:" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="CircuitBreakerNameTextBox" HorizontalAlignment="Left" Height="34" Margin="1266,632,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" FontSize="16"/>
+        <CheckBox x:Name="CircuitBreakerTopComponentCheckBox" Content="Top Compartment?" HorizontalAlignment="Left" Margin="1266,708,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBlock x:Name="CircuitBreakerIPTextBlock" HorizontalAlignment="Left" Margin="1073,670,0,0" TextWrapping="Wrap" Text="Circuit Breaker IP Address:" VerticalAlignment="Top" FontSize="16" Height="48" Width="188"/>
+        <TextBox x:Name="CircuitBreakerIPTextBox" HorizontalAlignment="Left" Height="34" Margin="1266,670,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" FontSize="16"/>
+        <TextBlock x:Name="AddingComponentInstructionsTextBlock" HorizontalAlignment="Left" Margin="813,309,0,0" TextWrapping="Wrap" Text="Select the appropriate component from the list on the left and then add the details to the component you're adding" VerticalAlignment="Top" FontSize="24" Width="608"/>
     </Grid>
 </Window>
