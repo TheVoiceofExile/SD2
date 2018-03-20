@@ -59,6 +59,9 @@
     <Compile Include="ManageSiteConfigurationWindow.xaml.cs">
       <DependentUpon>ManageSiteConfigurationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManageSwitchgearsWindow.xaml.cs">
+      <DependentUpon>ManageSwitchgearsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Substation.cs" />
     <Compile Include="Switchgear.cs" />
     <Page Include="MainControlWindow.xaml">
@@ -86,6 +89,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManageSiteConfigurationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageSwitchgearsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

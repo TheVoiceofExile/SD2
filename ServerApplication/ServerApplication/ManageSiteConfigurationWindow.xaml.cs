@@ -15,9 +15,6 @@ using System.IO;
 
 namespace ServerApplication
 {
-    /// <summary>
-    /// Interaction logic for ManageSiteConfigurationWindow.xaml
-    /// </summary>
     public partial class ManageSiteConfigurationWindow : Window
     {
         private List<TreeViewItem> substations = new List<TreeViewItem>();
@@ -91,6 +88,13 @@ namespace ServerApplication
                                 Header = cb.BreakerName
                             };
                             frameHeader.Items.Add(circuitBreakerHeader);
+
+                            TreeViewItem circuitBreakerStatusHeader = new TreeViewItem
+                            {
+                                Header = "Breaker Status: "
+                            };
+
+                            circuitBreakerHeader.Items.Add(circuitBreakerStatusHeader);
 
                             TreeViewItem circuitBreakerIPHeader = new TreeViewItem
                             {
