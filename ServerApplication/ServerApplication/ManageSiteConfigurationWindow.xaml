@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ManageSiteConfigurationWindow" Height="900" Width="1600">
     <Grid>
-        <TextBlock x:Name="ManageAccountWindowTitle" HorizontalAlignment="Left" Margin="1255,10,0,0" TextWrapping="Wrap" Text="MANAGE ACCOUNT WINDOW" VerticalAlignment="Top" Height="40" Width="327" FontSize="24" TextAlignment="Center"/>
+        <TextBlock x:Name="ManageSiteConfigWindow" HorizontalAlignment="Left" Margin="1108,10,0,0" TextWrapping="Wrap" Text="MANAGE SITE CONFIGURATION WINDOW" VerticalAlignment="Top" Height="40" Width="474" FontSize="24" TextAlignment="Center"/>
         <TextBlock x:Name="LoggedInAsLabel" HorizontalAlignment="Left" Margin="1280,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="302" FontSize="20" Text="Logged In As"/>
         <Button x:Name="LogoutButton" Content="Logout" HorizontalAlignment="Left" Margin="1445,175,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="Logout"/>
         <TextBlock x:Name="AccessLevelTextBlock" HorizontalAlignment="Left" Margin="1280,125,0,0" TextWrapping="Wrap" Text="Access Level: 0" VerticalAlignment="Top" Height="45" Width="302" FontSize="20"/>

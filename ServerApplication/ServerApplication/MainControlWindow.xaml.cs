@@ -44,8 +44,15 @@ namespace ServerApplication
 
         private void SiteConfiguration(object sender, RoutedEventArgs e)
         {
-            ManageSiteConfigurationWindow siteConfigWindow = new ManageSiteConfigurationWindow(); ;
+            ManageSiteConfigurationWindow siteConfigWindow = new ManageSiteConfigurationWindow();
             siteConfigWindow.Show();
+            this.Close();
+        }
+
+        private void SwitchgearManagement(object sender, RoutedEventArgs e)
+        {
+            ManageSwitchgearsWindow switchgearsWindow = new ManageSwitchgearsWindow();
+            switchgearsWindow.Show();
             this.Close();
         }
     }

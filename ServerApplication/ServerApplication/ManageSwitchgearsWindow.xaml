@@ -8,5 +8,9 @@
         Title="ManageSwitchgearsWindow" Height="900" Width="1600">
     <Grid>
         <TreeView x:Name="SiteConfigurationTreeView" HorizontalAlignment="Left" Height="721" Margin="85,79,0,0" VerticalAlignment="Top" Width="475"/>
+        <TextBlock x:Name="LoggedInAsLabel" HorizontalAlignment="Left" Margin="1280,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="302" FontSize="20" Text="Logged In As"/>
+        <Button x:Name="LogoutButton" Content="Logout" HorizontalAlignment="Left" Margin="1445,175,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="Logout"/>
+        <TextBlock x:Name="AccessLevelTextBlock" HorizontalAlignment="Left" Margin="1280,125,0,0" TextWrapping="Wrap" Text="Access Level: 0" VerticalAlignment="Top" Height="45" Width="302" FontSize="20"/>
+        <Button x:Name="ControlPanelButton" Content="Control Panel" HorizontalAlignment="Left" Margin="1280,175,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="ControlPanelWindow"/>
     </Grid>
 </Window>
