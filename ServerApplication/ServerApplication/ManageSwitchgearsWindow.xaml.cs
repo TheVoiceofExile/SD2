@@ -164,5 +164,11 @@ namespace ServerApplication
         {
             var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/" + AppBrain.brain.Rackin);
         }
+
+        private void AddBreakerButton_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedSwitchgear = SiteConfigurationTreeView.SelectedItem.ToString();
+            BreakersToCommandListBox.Items.Add(selectedSwitchgear);
+        }
     }
 }

@@ -48,8 +48,8 @@ namespace ServerApplication
                     {
                         foreach (CircuitBreaker cb in f.CircuitBreakers)
                         {
-                            string open = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/state/");
-                            string status = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/")
+                            //string open = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/state/");
+                            //string status = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/");
                         }
                     }
                 }
