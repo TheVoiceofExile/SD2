@@ -27,7 +27,11 @@ namespace ServerApplication
 
         private string rackin = "rackin/";
         private string rackout = "rackout/";
+        private string openBreaker = "openBreaker/";
+        private string closeBreaker = "closeBreaker/";
         private string eStop = "Estop/";
+
+        private string pi = "http://127.0.0.1:8000/";
 
         private AppBrain()
         {
@@ -103,5 +107,8 @@ namespace ServerApplication
         public string EStop { get => eStop; set => eStop = value; }
         public string Rackout { get => rackout; set => rackout = value; }
         public string Rackin { get => rackin; set => rackin = value; }
+        public string CloseBreaker { get => closeBreaker; set => closeBreaker = value; }
+        public string OpenBreaker { get => openBreaker; set => openBreaker = value; }
+        public string Pi { get => pi; set => pi = value; }
     }
 }

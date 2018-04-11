@@ -54,7 +54,7 @@ namespace ServerApplication
             {
                 Header = "Site"
             };
-            SiteConfigurationTreeView.Items.Add(substationMainHeader);
+            SiteConfigurationTreeView.Items.Add(AppBrain.brain.SubStations[0]);
 
             foreach (Substation ss in AppBrain.brain.SubStations)
             {
@@ -139,6 +139,8 @@ namespace ServerApplication
 
             TreeViewItem parent = selected;
 
+            parents.Add(selected);
+
             while (parent.Header.ToString() != "Site")
             {
                 while (!(selectedParent is TreeViewItem || selectedParent is TreeView))
@@ -162,13 +164,84 @@ namespace ServerApplication
 
         private async void SendCommand(object sender, RoutedEventArgs e)
         {
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/" + AppBrain.brain.Rackin);
+            string command = "";
+
+            List<TreeViewItem> parents;
+
+            if ((bool)TestBreakerRadioButton.IsChecked)
+            {
+                command = AppBrain.brain.OpenBreaker;
+            }
+            if ((bool)RackInRadioButton.IsChecked)
+            {
+                command = AppBrain.brain.Rackin;
+            }
+            if ((bool)RackOutRadioButton.IsChecked)
+            {
+                command = AppBrain.brain.Rackout;
+            }
+
+            for (int i = 0; i < BreakersToCommandListBox.Items.Count; i++)
+            {
+                //var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/" +
+            }
+
+            if ((bool)TestBreakerRadioButton.IsChecked)
+            {
+                command = AppBrain.brain.CloseBreaker;
+
+                for (int i = 0; i < BreakersToCommandListBox.Items.Count; i++)
+                {
+                    //var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/" +);
+                }
+            }
         }
 
         private void AddBreakerButton_Click(object sender, RoutedEventArgs e)
         {
-            string selectedSwitchgear = SiteConfigurationTreeView.SelectedItem.ToString();
-            BreakersToCommandListBox.Items.Add(selectedSwitchgear);
+            string selectedBreaker = "";
+            List<TreeViewItem> parents = new List<TreeViewItem>();
+
+            parents = GetParentsOfSelected(parents, SiteConfigurationTreeView.SelectedItem as TreeViewItem);
+
+            if (parents.Count == 5)
+            {
+                foreach (TreeViewItem parent in parents)
+                {
+                    selectedBreaker = selectedBreaker + " - " + parent.Header;
+                }
+
+                BreakersToCommandListBox.Items.Add(selectedBreaker);
+            }
+        }
+
+        private void RemoveBreakerButton_Click(object sender, RoutedEventArgs e)
+        {
+            BreakersToCommandListBox.Items.Remove(BreakersToCommandListBox.SelectedItem);
+        }
+
+        private async void sendrackin(object sender, RoutedEventArgs e)
+        {
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Pi + AppBrain.brain.Rackin);
+            ResponseTextBox.Text = responseString;
+        }
+
+        private async void sendrackout(object sender, RoutedEventArgs e)
+        {
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Pi + AppBrain.brain.Rackout);
+            ResponseTextBox.Text = responseString;
+        }
+
+        private async void sendopenbreaker(object sender, RoutedEventArgs e)
+        {
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Pi + AppBrain.brain.OpenBreaker);
+            ResponseTextBox.Text = responseString;
+        }
+
+        private async void sendclosebreaker(object sender, RoutedEventArgs e)
+        {
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Pi + AppBrain.brain.CloseBreaker);
+            ResponseTextBox.Text = responseString;
         }
     }
 }
