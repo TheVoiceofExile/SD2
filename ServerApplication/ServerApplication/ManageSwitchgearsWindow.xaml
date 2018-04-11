@@ -12,5 +12,12 @@
         <Button x:Name="LogoutButton" Content="Logout" HorizontalAlignment="Left" Margin="1445,175,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="Logout"/>
         <TextBlock x:Name="AccessLevelTextBlock" HorizontalAlignment="Left" Margin="1280,125,0,0" TextWrapping="Wrap" Text="Access Level: 0" VerticalAlignment="Top" Height="45" Width="302" FontSize="20"/>
         <Button x:Name="ControlPanelButton" Content="Control Panel" HorizontalAlignment="Left" Margin="1280,175,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="ControlPanelWindow"/>
+        <Button x:Name="SendCommandButton" Content="Send Command" HorizontalAlignment="Left" Margin="712,755,0,0" VerticalAlignment="Top" Width="172" Height="45" Click="SendCommand"/>
+        <TextBlock x:Name="MultipleSwitchgearInstructionsTextBox" HorizontalAlignment="Left" Margin="639,10,0,0" TextWrapping="Wrap" Text="To send commands to multiple switchgears at a time all switchgears selected must be in the same position and status." VerticalAlignment="Top" Width="550" FontSize="20"/>
+        <RadioButton x:Name="RackInRadioButton" Content="Rack In" HorizontalAlignment="Left" Margin="712,705,0,0" VerticalAlignment="Top" Width="172"/>
+        <RadioButton x:Name="RackOutRadioButton" Content="Rack Out" HorizontalAlignment="Left" Margin="712,685,0,0" VerticalAlignment="Top" Width="172"/>
+        <RadioButton x:Name="TestBreakerRadioButton" Content="Test Breaker" HorizontalAlignment="Left" Margin="712,665,0,0" VerticalAlignment="Top" Width="172"/>
+        <Button x:Name="EmergencyStopButton" Content="EMERGENCY STOP" HorizontalAlignment="Left" Margin="1277,449,0,0" VerticalAlignment="Top" Width="243" Height="90" FontSize="18" FontWeight="Bold"/>
+        <TextBlock x:Name="EmergencyStopTextBlock" HorizontalAlignment="Left" Margin="1280,359,0,0" TextWrapping="Wrap" Text="Emergency stop will cease all circuit breaker motion and commands for any breakers that are currently in motion" VerticalAlignment="Top" Width="240" FontSize="16" FontWeight="Bold"/>
     </Grid>
 </Window>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net.Http;
+using System.Timers;
 
 namespace ServerApplication
 {
@@ -19,9 +21,39 @@ namespace ServerApplication
         private string userCredentialsFile = "S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv";
         private string siteConfigurationFile = "S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\SiteConfiguration.csv";
 
+        private HttpClient httpClient = new HttpClient();
+
+        private Timer refreshRate = new Timer();
+
+        private string rackin = "rackin/";
+        private string rackout = "rackout/";
+        private string eStop = "Estop/";
+
         private AppBrain()
         {
             // Hey don't add stuff here because race condition
+
+            refreshRate.Elapsed += new ElapsedEventHandler(RefreshSite);
+            refreshRate.Interval = 25;
+            refreshRate.Enabled = true;
+        }
+
+        private static async void RefreshSite(object source, ElapsedEventArgs e)
+        {
+            foreach (Substation ss in brain.listOfSubstations)
+            {
+                foreach (Switchgear sg in ss.Switchgears)
+                {
+                    foreach (Frame f in sg.Frames)
+                    {
+                        foreach (CircuitBreaker cb in f.CircuitBreakers)
+                        {
+                            string open = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/state/");
+                            string status = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/")
+                        }
+                    }
+                }
+            }
         }
 
         public void LoadSiteConfiguration()
@@ -67,5 +99,9 @@ namespace ServerApplication
         public List<Substation> SubStations { get => listOfSubstations; set => listOfSubstations = value; }
         public string UserCredentialsFile { get => userCredentialsFile; set => userCredentialsFile = value; }
         public string SiteConfigurationFile { get => siteConfigurationFile; set => siteConfigurationFile = value; }
+        public HttpClient HttpClient { get => httpClient; set => httpClient = value; }
+        public string EStop { get => eStop; set => eStop = value; }
+        public string Rackout { get => rackout; set => rackout = value; }
+        public string Rackin { get => rackin; set => rackin = value; }
     }
 }

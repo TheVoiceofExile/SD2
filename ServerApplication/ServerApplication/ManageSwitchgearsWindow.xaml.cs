@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Net.Http;
 
 namespace ServerApplication
 {
@@ -159,5 +160,9 @@ namespace ServerApplication
             return parents;
         }
 
+        private async void SendCommand(object sender, RoutedEventArgs e)
+        {
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/" + AppBrain.brain.Rackin);
+        }
     }
 }
