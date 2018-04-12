@@ -171,19 +171,19 @@ namespace ServerApplication
             if ((bool)TestBreakerRadioButton.IsChecked)
             {
                 command = AppBrain.brain.OpenBreaker;
-                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Pi + AppBrain.brain.Rackin);
+                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Uri + AppBrain.brain.Rackin);
                 ResponseTextBox.Text = responseString;
             }
             if ((bool)RackInRadioButton.IsChecked)
             {
                 command = AppBrain.brain.Rackin;
-                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Pi + AppBrain.brain.Rackin);
+                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Uri + AppBrain.brain.Rackin);
                 ResponseTextBox.Text = responseString;
             }
             if ((bool)RackOutRadioButton.IsChecked)
             {
                 command = AppBrain.brain.Rackout;
-                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Pi + AppBrain.brain.Rackin);
+                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Uri + AppBrain.brain.Rackin);
                 ResponseTextBox.Text = responseString;
             }
 
@@ -226,31 +226,33 @@ namespace ServerApplication
             BreakersToCommandListBox.Items.Remove(BreakersToCommandListBox.SelectedItem);
         }
 
+        private async void estop(object sender, RoutedEventArgs e)
+        {
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.EStop);
+            ResponseTextBox.Text = responseString;
+        }
+
         private async void sendrackin(object sender, RoutedEventArgs e)
         {
-            var uri = new Uri("http://169.254.130.91:8000/rackin/");
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(uri);
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.Rackin);
             ResponseTextBox.Text = responseString;
         }
 
         private async void sendrackout(object sender, RoutedEventArgs e)
         {
-            var uri = new Uri("http://169.254.130.91:8000/rackout/");
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(uri);
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.Rackout);
             ResponseTextBox.Text = responseString;
         }
 
         private async void sendopenbreaker(object sender, RoutedEventArgs e)
         {
-            var uri = new Uri("http://169.254.130.91:8000/breakerOpen/");
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(uri);
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.OpenBreaker);
             ResponseTextBox.Text = responseString;
         }
 
         private async void sendclosebreaker(object sender, RoutedEventArgs e)
         {
-            var uri = new Uri("http://169.254.130.91:8000/breakerClose/");
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(uri);
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.CloseBreaker);
             ResponseTextBox.Text = responseString;
         }
     }

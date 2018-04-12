@@ -29,9 +29,11 @@ namespace ServerApplication
         private string rackout = "rackout/";
         private string openBreaker = "openBreaker/";
         private string closeBreaker = "closeBreaker/";
-        private string eStop = "Estop/";
+        private string eStop = "estop/";
 
-        private string pi = "169.254.130.91:8000/";
+        private string test = "http://169.254.130.91:8000/";
+
+        private Uri uri = new Uri("http://169.254.130.91:8000/");
 
         private AppBrain()
         {
@@ -108,6 +110,7 @@ namespace ServerApplication
         public string Rackin { get => rackin; set => rackin = value; }
         public string CloseBreaker { get => closeBreaker; set => closeBreaker = value; }
         public string OpenBreaker { get => openBreaker; set => openBreaker = value; }
-        public string Pi { get => pi; set => pi = value; }
+        public Uri Uri { get => uri; set => uri = value; }
+        public string Test { get => test; set => test = value; }
     }
 }
