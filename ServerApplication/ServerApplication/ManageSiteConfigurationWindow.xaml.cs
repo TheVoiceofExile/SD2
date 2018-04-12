@@ -206,7 +206,7 @@ namespace ServerApplication
             UpdateSiteConfiguration();
             PopulateSiteConfiguration();
         }
-        
+
         ////////////////////////////////////////
         // Invalid if selected is Bruce Wayne //
         ////////////////////////////////////////

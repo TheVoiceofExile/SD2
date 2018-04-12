@@ -18,8 +18,8 @@ namespace ServerApplication
 
         private List<Substation> listOfSubstations = new List<Substation>();
 
-        private string userCredentialsFile = "S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv";
-        private string siteConfigurationFile = "S:\\Repos\\SD2\\ServerApplication\\ServerApplication\\SiteConfiguration.csv";
+        private string userCredentialsFile = "Q:\\GitHub\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv";
+        private string siteConfigurationFile = "Q:\\GitHub\\SD2\\ServerApplication\\ServerApplication\\SiteConfiguration.csv";
 
         private HttpClient httpClient = new HttpClient();
 
@@ -31,14 +31,13 @@ namespace ServerApplication
         private string closeBreaker = "closeBreaker/";
         private string eStop = "Estop/";
 
-        private string pi = "http://127.0.0.1:8000/";
+        private string pi = "169.254.130.91:8000/";
 
         private AppBrain()
         {
             // Hey don't add stuff here because race condition
-
             refreshRate.Elapsed += new ElapsedEventHandler(RefreshSite);
-            refreshRate.Interval = 25;
+            refreshRate.Interval = 1000;
             refreshRate.Enabled = true;
         }
 
