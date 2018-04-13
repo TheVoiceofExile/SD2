@@ -72,7 +72,7 @@ namespace ServerApplication
         // Populates the site configuration on the left side of the window
         public TreeView PopulateSiteConfiguration(TreeView SiteConfigurationTreeView)
         {
-            var siteConfiguration = AppBrain.brain.SubStations;
+            List<Substation> siteConfiguration = AppBrain.brain.SubStations;
 
             List<TreeViewItem> substations = new List<TreeViewItem>();
             List<TreeViewItem> switchgears = new List<TreeViewItem>();
