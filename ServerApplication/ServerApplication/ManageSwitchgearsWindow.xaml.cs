@@ -13,6 +13,7 @@ namespace ServerApplication
         public ManageSwitchgearsWindow()
         {
             InitializeComponent();
+            AppBrain.brain.Msgw = this;
             LoggedInAsLabel.Text = "Current User: " + AppBrain.brain.Username;
             AccessLevelTextBlock.Text = "Access Level: " + AppBrain.brain.AccessLevel;
             SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(SiteConfigurationTreeView);
@@ -23,6 +24,7 @@ namespace ServerApplication
         {
             MainControlWindow controlPanelWindow = new MainControlWindow();
             controlPanelWindow.Show();
+            AppBrain.brain.Msgw = null;
             this.Close();
         }
 
@@ -31,6 +33,7 @@ namespace ServerApplication
         {
             MainWindow loginWindow = new MainWindow();
             loginWindow.Show();
+            AppBrain.brain.Msgw = null;
             this.Close();
         }
 

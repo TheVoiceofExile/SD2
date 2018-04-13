@@ -31,7 +31,11 @@ namespace ServerApplication
         private string closeBreaker = "closeBreaker/";
         private string eStop = "estop/";
 
-
+        private MainControlWindow mcw;
+        private MainWindow mw;
+        private ManageAccountWindow maw;
+        private ManageSiteConfigurationWindow mscw;
+        private ManageSwitchgearsWindow msgw;
 
         private AppBrain()
         {
@@ -53,6 +57,12 @@ namespace ServerApplication
                         {
                             //string open = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/state/");
                             //string status = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/");
+
+                            //if (open == "open")
+                            //{
+                            //    cb.IsOpen = true;
+                            //}
+
                         }
                     }
                 }
@@ -199,5 +209,10 @@ namespace ServerApplication
         public string Rackin { get => rackin; set => rackin = value; }
         public string CloseBreaker { get => closeBreaker; set => closeBreaker = value; }
         public string OpenBreaker { get => openBreaker; set => openBreaker = value; }
+        public MainControlWindow Mcw { get => mcw; set => mcw = value; }
+        public MainWindow Mw { get => mw; set => mw = value; }
+        public ManageAccountWindow Maw { get => maw; set => maw = value; }
+        public ManageSiteConfigurationWindow Mscw { get => mscw; set => mscw = value; }
+        public ManageSwitchgearsWindow Msgw { get => msgw; set => msgw = value; }
     }
 }

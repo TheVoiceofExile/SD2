@@ -19,6 +19,7 @@ namespace ServerApplication
         public MainControlWindow()
         {
             InitializeComponent();
+            AppBrain.brain.Mcw = this;
             LoggedInAsLabel.Text = "Current User: " + AppBrain.brain.Username;
             AccessLevelTextBlock.Text = "Access Level: " + AppBrain.brain.AccessLevel;
 
@@ -32,6 +33,7 @@ namespace ServerApplication
         {
             MainWindow loginWindow = new MainWindow();
             loginWindow.Show();
+            AppBrain.brain.Mcw = null;
             this.Close();
         }
 
@@ -39,6 +41,7 @@ namespace ServerApplication
         {
             ManageAccountWindow accountWindow = new ManageAccountWindow();
             accountWindow.Show();
+            AppBrain.brain.Mcw = null;
             this.Close();
         }
 
