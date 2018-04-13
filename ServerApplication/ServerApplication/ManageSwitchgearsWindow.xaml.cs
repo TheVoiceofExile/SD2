@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Net.Http;
 
 namespace ServerApplication
 {
@@ -32,6 +22,7 @@ namespace ServerApplication
             PopulateSiteConfiguration();
         }
 
+        // Return back to the control panel window
         private void ControlPanelWindow(object sender, RoutedEventArgs e)
         {
             MainControlWindow controlPanelWindow = new MainControlWindow();
@@ -39,6 +30,7 @@ namespace ServerApplication
             this.Close();
         }
 
+        // Log out from current user
         private void Logout(object sender, RoutedEventArgs e)
         {
             MainWindow loginWindow = new MainWindow();
@@ -46,6 +38,7 @@ namespace ServerApplication
             this.Close();
         }
 
+        // Populates the site configuration on the left side of the window
         private void PopulateSiteConfiguration()
         {
             var siteConfiguration = AppBrain.brain.SubStations;
@@ -128,9 +121,7 @@ namespace ServerApplication
             }
         }
 
-        ////////////////////////////////////////
-        // Invalid if selected is Bruce Wayne //
-        ////////////////////////////////////////
+        // Finds the parents of the provided selected item from the treeview
         private List<TreeViewItem> GetParentsOfSelected(List<TreeViewItem> parents, TreeViewItem selected)
         {
             DependencyObject selectedParent = VisualTreeHelper.GetParent(selected);
@@ -162,47 +153,118 @@ namespace ServerApplication
             return parents;
         }
 
-        private async void SendCommand(object sender, RoutedEventArgs e)
+        // Reacts to the send command button press and sends the command of whatever radio button was selected.
+        private void SendCommand(object sender, RoutedEventArgs e)
         {
             string command = "";
-
-            List<TreeViewItem> parents;
-
-            if ((bool)TestBreakerRadioButton.IsChecked)
-            {
-                command = AppBrain.brain.OpenBreaker;
-                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Uri + AppBrain.brain.Rackin);
-                ResponseTextBox.Text = responseString;
-            }
-            if ((bool)RackInRadioButton.IsChecked)
-            {
-                command = AppBrain.brain.Rackin;
-                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Uri + AppBrain.brain.Rackin);
-                ResponseTextBox.Text = responseString;
-            }
-            if ((bool)RackOutRadioButton.IsChecked)
-            {
-                command = AppBrain.brain.Rackout;
-                var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Uri + AppBrain.brain.Rackin);
-                ResponseTextBox.Text = responseString;
-            }
-
-            for (int i = 0; i < BreakersToCommandListBox.Items.Count; i++)
-            {
-                //var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/" +
-            }
 
             if ((bool)TestBreakerRadioButton.IsChecked)
             {
                 command = AppBrain.brain.CloseBreaker;
+            }
+            if ((bool)RackInRadioButton.IsChecked)
+            {
+                command = AppBrain.brain.Rackin;
+            }
+            if ((bool)RackOutRadioButton.IsChecked)
+            {
+                command = AppBrain.brain.Rackout;
+            }
 
-                for (int i = 0; i < BreakersToCommandListBox.Items.Count; i++)
+            SendCommands(command);
+        }
+
+        // Helper method to send the commands
+        private async void SendCommands(string command)
+        {
+            List<string[]> breakerParents = BreakdownBreakerString();
+
+            List<string> IP = GetIPs(breakerParents);
+
+            foreach (string ip in IP)
+            {
+                var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://" + ip + "/" + command);
+                ResponseTextBox.Text = responseString;
+
+                if ((bool)TestBreakerRadioButton.IsChecked)
                 {
-                    //var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/" +);
+                    var secondResponse = await AppBrain.brain.HttpClient.GetStringAsync(ip + AppBrain.brain.OpenBreaker);
                 }
             }
         }
 
+        // Breaks the string in the list box that shows which breakers will have the command sent to into a
+        // format that can be used to retrieve the IP
+        private List<string[]> BreakdownBreakerString()
+        {
+            List<string[]> breakers = new List<string[]>();
+
+            for (int i = 0; i < BreakersToCommandListBox.Items.Count; i++)
+            {
+                string currentBreaker = BreakersToCommandListBox.Items[i].ToString();
+
+                string[] splitBreaker = currentBreaker.Split('-');
+
+                for (int j = 0; j < splitBreaker.Length; j++)
+                {
+                    splitBreaker[j] = splitBreaker[j].TrimEnd(' ');
+                    splitBreaker[j] = splitBreaker[j].TrimStart(' ');
+                }
+
+                breakers.Add(splitBreaker);
+            }
+
+            return breakers;
+        }
+
+        // Using the broken down strings from the list box finds the IP addresses of the breakers
+        // that are listed there.
+        private List<string> GetIPs(List<string[]> breakers)
+        {
+            List<string> ipAddresses = new List<string>();
+
+            TreeViewItem selected = SiteConfigurationTreeView.SelectedItem as TreeViewItem;
+
+            foreach (string[] breaker in breakers)
+            {
+                foreach (Substation ss in AppBrain.brain.SubStations)
+                {
+                    if (ss.SubstationName == breaker[2])
+                    {
+                        foreach (Switchgear sg in ss.Switchgears)
+                        {
+                            if (sg.SwitchgearName == breaker[3])
+                            {
+                                foreach (Frame f in sg.Frames)
+                                {
+                                    if (f.FrameName == breaker[4])
+                                    {
+                                        foreach (CircuitBreaker cb in f.CircuitBreakers)
+                                        {
+                                            if (cb.BreakerName == breaker[5])
+                                            {
+                                                ipAddresses.Add(cb.IpAddress);
+                                                break;
+                                            }
+                                        }
+
+                                        break;
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            return ipAddresses;
+        }
+
+        // Adds the breaker selected to the list of breakers to issue commands to
         private void AddBreakerButton_Click(object sender, RoutedEventArgs e)
         {
             string selectedBreaker = "";
@@ -221,39 +283,16 @@ namespace ServerApplication
             }
         }
 
+        // Removes a breaker from the list of breakers to issue commands to
         private void RemoveBreakerButton_Click(object sender, RoutedEventArgs e)
         {
             BreakersToCommandListBox.Items.Remove(BreakersToCommandListBox.SelectedItem);
         }
 
-        private async void estop(object sender, RoutedEventArgs e)
+        // Activates Estop on all listed breakers
+        private void Estop(object sender, RoutedEventArgs e)
         {
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.EStop);
-            ResponseTextBox.Text = responseString;
-        }
-
-        private async void sendrackin(object sender, RoutedEventArgs e)
-        {
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.Rackin);
-            ResponseTextBox.Text = responseString;
-        }
-
-        private async void sendrackout(object sender, RoutedEventArgs e)
-        {
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.Rackout);
-            ResponseTextBox.Text = responseString;
-        }
-
-        private async void sendopenbreaker(object sender, RoutedEventArgs e)
-        {
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.OpenBreaker);
-            ResponseTextBox.Text = responseString;
-        }
-
-        private async void sendclosebreaker(object sender, RoutedEventArgs e)
-        {
-            var responseString = await AppBrain.brain.HttpClient.GetStringAsync(AppBrain.brain.Test + AppBrain.brain.CloseBreaker);
-            ResponseTextBox.Text = responseString;
+            SendCommands(AppBrain.brain.EStop);
         }
     }
 }

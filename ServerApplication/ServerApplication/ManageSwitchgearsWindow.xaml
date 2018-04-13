@@ -12,21 +12,18 @@
         <Button x:Name="LogoutButton" Content="Logout" HorizontalAlignment="Left" Margin="1445,175,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="Logout"/>
         <TextBlock x:Name="AccessLevelTextBlock" HorizontalAlignment="Left" Margin="1280,125,0,0" TextWrapping="Wrap" Text="Access Level: 0" VerticalAlignment="Top" Height="45" Width="302" FontSize="20"/>
         <Button x:Name="ControlPanelButton" Content="Control Panel" HorizontalAlignment="Left" Margin="1280,175,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="ControlPanelWindow"/>
-        <Button x:Name="SendCommandButton" Content="Send RackIn" HorizontalAlignment="Left" Margin="726,745,0,0" VerticalAlignment="Top" Width="172" Height="44" Click="sendrackin"/>
+        <Button x:Name="SendCommandButton" Content="Send Command" HorizontalAlignment="Left" Margin="726,745,0,0" VerticalAlignment="Top" Width="172" Height="44" Click="SendCommand"/>
         <TextBlock x:Name="MultipleSwitchgearInstructionsTextBox" HorizontalAlignment="Left" Margin="639,10,0,0" TextWrapping="Wrap" Text="To send commands to multiple switchgears at a time all switchgears selected must be in the same position and status." VerticalAlignment="Top" Width="550" FontSize="20"/>
         <RadioButton x:Name="RackInRadioButton" Content="Rack In" HorizontalAlignment="Left" Margin="726,695,0,0" VerticalAlignment="Top" Width="172"/>
         <RadioButton x:Name="RackOutRadioButton" Content="Rack Out" HorizontalAlignment="Left" Margin="726,675,0,0" VerticalAlignment="Top" Width="172"/>
         <RadioButton x:Name="TestBreakerRadioButton" Content="Test Breaker" HorizontalAlignment="Left" Margin="726,655,0,0" VerticalAlignment="Top" Width="172"/>
-        <Button x:Name="EmergencyStopButton" Content="EMERGENCY STOP" HorizontalAlignment="Left" Margin="1277,449,0,0" VerticalAlignment="Top" Width="243" Height="90" FontSize="18" FontWeight="Bold" Click="estop"/>
+        <Button x:Name="EmergencyStopButton" Content="EMERGENCY STOP" HorizontalAlignment="Left" Margin="1277,449,0,0" VerticalAlignment="Top" Width="243" Height="90" FontSize="18" FontWeight="Bold" Click="Estop"/>
         <TextBlock x:Name="EmergencyStopTextBlock" HorizontalAlignment="Left" Margin="1280,359,0,0" TextWrapping="Wrap" Text="Emergency stop will cease all circuit breaker motion and commands for any breakers that are currently in motion" VerticalAlignment="Top" Width="240" FontSize="16" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="726,621,0,0" TextWrapping="Wrap" Text="Commands:" VerticalAlignment="Top" Width="172" Height="28" FontSize="20"/>
         <TextBlock HorizontalAlignment="Left" Margin="726,211,0,0" TextWrapping="Wrap" Text="Circuit Breakers to Command" VerticalAlignment="Top" Height="29" Width="350" FontSize="18"/>
         <Button x:Name="AddBreakerButton" Content="Add Breaker &gt;&gt;" HorizontalAlignment="Left" Margin="582,287,0,0" VerticalAlignment="Top" Width="120" Height="30" Click="AddBreakerButton_Click"/>
         <Button x:Name="RemoveBreakerButton" Content="&lt;&lt; Remove Breaker" HorizontalAlignment="Left" Margin="582,339,0,0" VerticalAlignment="Top" Width="120" Height="30" Click="RemoveBreakerButton_Click"/>
         <ListBox x:Name="BreakersToCommandListBox" HorizontalAlignment="Left" Height="371" Margin="726,245,0,0" VerticalAlignment="Top" Width="492"/>
-        <Button x:Name="SendRackOutButton" Content="Send RackOut" HorizontalAlignment="Left" Margin="932,745,0,0" VerticalAlignment="Top" Width="172" Height="44" Click="sendrackout"/>
-        <Button x:Name="SendOpenBreakerButton" Content="Send Open Breaker" HorizontalAlignment="Left" Margin="1140,745,0,0" VerticalAlignment="Top" Width="172" Height="44" Click="sendopenbreaker"/>
-        <Button x:Name="SendCloseBreakerButton" Content="Send Close Breaker" HorizontalAlignment="Left" Margin="1348,745,0,0" VerticalAlignment="Top" Width="172" Height="44" Click="sendclosebreaker"/>
         <TextBlock x:Name="ResponseTextBox" HorizontalAlignment="Left" Margin="932,631,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="588" Height="88"/>
     </Grid>
 </Window>
