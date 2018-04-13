@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Net.Http;
 using System.Timers;
@@ -31,9 +31,7 @@ namespace ServerApplication
         private string closeBreaker = "closeBreaker/";
         private string eStop = "estop/";
 
-        private string test = "http://169.254.130.91:8000/";
 
-        private Uri uri = new Uri("http://169.254.130.91:8000/");
 
         private AppBrain()
         {
@@ -59,6 +57,97 @@ namespace ServerApplication
                     }
                 }
             }
+        }
+
+        // Populates the site configuration on the left side of the window
+        public TreeView PopulateSiteConfiguration(TreeView SiteConfigurationTreeView)
+        {
+            var siteConfiguration = AppBrain.brain.SubStations;
+
+            List<TreeViewItem> substations = new List<TreeViewItem>();
+            List<TreeViewItem> switchgears = new List<TreeViewItem>();
+            List<TreeViewItem> frames = new List<TreeViewItem>();
+
+        TreeViewItem substationMainHeader = new TreeViewItem
+            {
+                Header = "Site"
+            };
+            SiteConfigurationTreeView.Items.Add(substationMainHeader);
+
+            foreach (Substation ss in AppBrain.brain.SubStations)
+            {
+                TreeViewItem substationHeader = new TreeViewItem
+                {
+                    Header = ss.SubstationName
+                };
+                substationMainHeader.Items.Add(substationHeader);
+
+                substations.Add(substationHeader);
+
+                foreach (Switchgear sg in ss.Switchgears)
+                {
+                    TreeViewItem switchgearHeader = new TreeViewItem
+                    {
+                        Header = sg.SwitchgearName
+                    };
+                    substationHeader.Items.Add(switchgearHeader);
+
+                    switchgears.Add(switchgearHeader);
+
+                    foreach (Frame f in sg.Frames)
+                    {
+                        TreeViewItem frameHeader = new TreeViewItem
+                        {
+                            Header = f.FrameName
+                        };
+                        switchgearHeader.Items.Add(frameHeader);
+
+                        foreach (CircuitBreaker cb in f.CircuitBreakers)
+                        {
+                            TreeViewItem circuitBreakerHeader = new TreeViewItem
+                            {
+                                Header = cb.BreakerName
+                            };
+                            frameHeader.Items.Add(circuitBreakerHeader);
+
+                            TreeViewItem circuitBreakerStatusHeader = new TreeViewItem
+                            {
+                                Header = "Breaker Status: "
+                            };
+
+                            circuitBreakerHeader.Items.Add(circuitBreakerStatusHeader);
+
+                            TreeViewItem circuitBreakerIPHeader = new TreeViewItem
+                            {
+                                Header = "IP Address: " + cb.IpAddress
+                            };
+
+                            circuitBreakerHeader.Items.Add(circuitBreakerIPHeader);
+
+                            if (cb.IsTopComponent)
+                            {
+                                TreeViewItem circuitBreakerLocationHeader = new TreeViewItem
+                                {
+                                    Header = "Location: Top"
+                                };
+                                circuitBreakerHeader.Items.Add(circuitBreakerLocationHeader);
+                            }
+                            else
+                            {
+                                TreeViewItem circuitBreakerLocationHeader = new TreeViewItem
+                                {
+                                    Header = "Location: Bottom"
+                                };
+                                circuitBreakerHeader.Items.Add(circuitBreakerLocationHeader);
+                            }
+                        }
+                    }
+                }
+            }
+
+            substationMainHeader.ExpandSubtree();
+
+            return SiteConfigurationTreeView;
         }
 
         public void LoadSiteConfiguration()
@@ -110,7 +199,5 @@ namespace ServerApplication
         public string Rackin { get => rackin; set => rackin = value; }
         public string CloseBreaker { get => closeBreaker; set => closeBreaker = value; }
         public string OpenBreaker { get => openBreaker; set => openBreaker = value; }
-        public Uri Uri { get => uri; set => uri = value; }
-        public string Test { get => test; set => test = value; }
     }
 }
