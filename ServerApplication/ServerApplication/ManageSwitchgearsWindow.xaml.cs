@@ -99,7 +99,7 @@ namespace ServerApplication
 
             foreach (string ip in IP)
             {
-                var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://" + ip + "/" + command);
+                var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://" + ip + ":8000/" + command);
                 ResponseTextBox.Text = responseString;
 
                 if ((bool)TestBreakerRadioButton.IsChecked)

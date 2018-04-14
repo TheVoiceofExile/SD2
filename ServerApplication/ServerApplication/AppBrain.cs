@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using System.Net.Http;
 using System.Timers;
 
@@ -53,19 +54,42 @@ namespace ServerApplication
                 {
                     foreach (Frame f in sg.Frames)
                     {
-                        foreach (CircuitBreaker cb in f.CircuitBreakers)
+                        for (int i = 0; i < f.CircuitBreakers.Count; i++)
                         {
-                            //string open = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/state/");
-                            //string status = await brain.HttpClient.GetStringAsync("http://127.0.0.1:8000/");
+                            if (f.CircuitBreakers[i].IpAddress != "169.254.130.91")
+                            {
+                                continue;
+                            }
 
-                            //if (open == "open")
-                            //{
-                            //    cb.IsOpen = true;
-                            //}
+                            string response = await brain.httpClient.GetStringAsync("http://" + f.CircuitBreakers[i].IpAddress + ":8000/rackingsystem/");
 
+                            List<JsonCircuitBreaker> jsonCircuitBreakers = JsonConvert.DeserializeObject<List<JsonCircuitBreaker>>(response);
+
+                            f.CircuitBreakers[i].PrevState = f.CircuitBreakers[i].State;
+                            f.CircuitBreakers[i].State = jsonCircuitBreakers[0].state;
+                            f.CircuitBreakers[i].IsOpen = jsonCircuitBreakers[0].breaker;
+                            f.CircuitBreakers[i].IsEStopped = jsonCircuitBreakers[0].EStop;
+                            f.CircuitBreakers[i].IsRacking = jsonCircuitBreakers[0].racking;
                         }
                     }
                 }
+            }
+
+            if (AppBrain.brain.mscw != null)
+            {
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    //AppBrain.brain.mscw.SiteConfigurationTreeView = new TreeView();
+                    AppBrain.brain.mscw.SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(AppBrain.brain.mscw.SiteConfigurationTreeView);
+                });
+            }
+            else if (AppBrain.brain.msgw != null)
+            {
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    //AppBrain.brain.msgw.SiteConfigurationTreeView = new TreeView();
+                    AppBrain.brain.msgw.SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(AppBrain.brain.msgw.SiteConfigurationTreeView);
+                });
             }
         }
 
@@ -120,9 +144,65 @@ namespace ServerApplication
                             };
                             frameHeader.Items.Add(circuitBreakerHeader);
 
+                            string status = "";
+
+                            if (cb.IsRacking && !cb.IsEStopped)
+                            {
+                                status = "Open and Racking";
+                            }
+                            else if (!cb.IsRacking && !cb.IsEStopped)
+                            {
+                                status = cb.IsOpen ? "Breaker Open " : "Breaker Closed ";
+
+                                switch(cb.State)
+                                {
+                                    case 0:
+                                        status = status + "and in Racked Out Position";
+                                        break;
+                                    case 1:
+                                        status = status + "and In Test Position";
+                                        break;
+                                    case 2:
+                                        status = status + "and in Racked In Position";
+                                        break;
+                                }
+                            }
+                            else if (!cb.IsRacking && cb.IsEStopped)
+                            {
+                                switch(cb.State)
+                                {
+                                    case 0:
+                                        status = "ESTOP Active in Racked Out Position";
+                                        break;
+                                    case 1:
+                                        status = "ESTOP Active in Test Position";
+                                        break;
+                                    case 2:
+                                        status = "ESTOP Active in Racked In Position";
+                                        break;
+                                }
+
+                                status += cb.IsOpen ? " and Breaker Open" : "and Breaker Closed";
+                            }
+                            else if (cb.IsRacking && cb.IsEStopped)
+                            {
+                                switch(cb.State)
+                                {
+                                    case 0:
+                                        status = "ESTOP Active";
+                                        break;
+                                    case 1:
+                                        status = "ESTOP Active";
+                                        break;
+                                    case 2:
+                                        status = "ESTOP Active";
+                                        break;
+                                }
+                            }
+
                             TreeViewItem circuitBreakerStatusHeader = new TreeViewItem
                             {
-                                Header = "Breaker Status: "
+                                Header = "Breaker Status: " + status
                             };
 
                             circuitBreakerHeader.Items.Add(circuitBreakerStatusHeader);
