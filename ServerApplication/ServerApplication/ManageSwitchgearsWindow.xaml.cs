@@ -95,18 +95,25 @@ namespace ServerApplication
         {
             List<string[]> breakerParents = BreakdownBreakerString();
 
-            List<string> IP = GetIPs(breakerParents);
+            List<CircuitBreaker> circuitBreakers = GetCircuitBreakers(breakerParents);
 
-            foreach (string ip in IP)
+            var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://169.254.130.91:8000/" + command);
+
+            if ((bool)TestBreakerRadioButton.IsChecked)
             {
-                var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://" + ip + ":8000/" + command);
-                ResponseTextBox.Text = responseString;
-
-                if ((bool)TestBreakerRadioButton.IsChecked)
-                {
-                    var secondResponse = await AppBrain.brain.HttpClient.GetStringAsync(ip + AppBrain.brain.OpenBreaker);
-                }
+                var secondResponse = await AppBrain.brain.HttpClient.GetStringAsync("http://169.254.130.91:8000/breakerOpen/");
             }
+
+            //foreach (CircuitBreaker breaker in circuitBreakers)
+            //{
+            //    var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://" + breaker.IpAddress + ":8000/" + command);
+            //    ResponseTextBox.Text = responseString;
+            //
+            //    if ((bool)TestBreakerRadioButton.IsChecked)
+            //    {
+            //        var secondResponse = await AppBrain.brain.HttpClient.GetStringAsync(breaker.IpAddress + AppBrain.brain.OpenBreaker);
+            //    }
+            //}
         }
 
         // Breaks the string in the list box that shows which breakers will have the command sent to into a
@@ -135,11 +142,9 @@ namespace ServerApplication
 
         // Using the broken down strings from the list box finds the IP addresses of the breakers
         // that are listed there.
-        private List<string> GetIPs(List<string[]> breakers)
+        private List<CircuitBreaker> GetCircuitBreakers(List<string[]> breakers)
         {
-            List<string> ipAddresses = new List<string>();
-
-            TreeViewItem selected = SiteConfigurationTreeView.SelectedItem as TreeViewItem;
+            List<CircuitBreaker> circuitBreakers = new List<CircuitBreaker>();
 
             foreach (string[] breaker in breakers)
             {
@@ -159,7 +164,7 @@ namespace ServerApplication
                                         {
                                             if (cb.BreakerName == breaker[5])
                                             {
-                                                ipAddresses.Add(cb.IpAddress);
+                                                circuitBreakers.Add(cb);
                                                 break;
                                             }
                                         }
@@ -177,7 +182,7 @@ namespace ServerApplication
                 }
             }
 
-            return ipAddresses;
+            return circuitBreakers;
         }
 
         // Adds the breaker selected to the list of breakers to issue commands to
@@ -186,7 +191,9 @@ namespace ServerApplication
             string selectedBreaker = "";
             List<TreeViewItem> parents = new List<TreeViewItem>();
 
-            parents = GetParentsOfSelected(parents, SiteConfigurationTreeView.SelectedItem as TreeViewItem);
+            TreeViewItem selected = SiteConfigurationTreeView.SelectedItem as TreeViewItem;
+
+            parents = GetParentsOfSelected(parents, selected);
 
             if (parents.Count == 5)
             {

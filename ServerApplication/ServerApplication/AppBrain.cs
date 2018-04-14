@@ -79,7 +79,7 @@ namespace ServerApplication
             {
                 Application.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    //AppBrain.brain.mscw.SiteConfigurationTreeView = new TreeView();
+                    AppBrain.brain.mscw.SiteConfigurationTreeView = new TreeView();
                     AppBrain.brain.mscw.SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(AppBrain.brain.mscw.SiteConfigurationTreeView);
                 });
             }
@@ -87,7 +87,7 @@ namespace ServerApplication
             {
                 Application.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    //AppBrain.brain.msgw.SiteConfigurationTreeView = new TreeView();
+                    AppBrain.brain.msgw.SiteConfigurationTreeView = new TreeView();
                     AppBrain.brain.msgw.SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(AppBrain.brain.msgw.SiteConfigurationTreeView);
                 });
             }
