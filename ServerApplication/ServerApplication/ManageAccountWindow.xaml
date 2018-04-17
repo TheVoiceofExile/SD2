@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerApplication"
         mc:Ignorable="d"
-        Title="ManageAccountWindow" Height="900" Width="1600">
+        Title="ManageAccountWindow" Height="900" Width="1600"
+        WindowState="Maximized"
+        WindowStyle="None">
     <Grid>
         <TextBlock x:Name="ManageAccountWindowTitle" HorizontalAlignment="Left" Margin="1255,10,0,0" TextWrapping="Wrap" Text="MANAGE ACCOUNT WINDOW" VerticalAlignment="Top" Height="40" Width="327" FontSize="24" TextAlignment="Center"/>
         <TextBlock x:Name="LoggedInAsLabel" HorizontalAlignment="Left" Margin="1280,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="302" FontSize="20" Text="Logged In As"/>

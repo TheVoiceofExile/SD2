@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -74,7 +76,11 @@ namespace ServerApplication
         {
             string command = "";
 
-            if ((bool)TestBreakerRadioButton.IsChecked)
+            if ((bool)OpenBreakerRadioButton.IsChecked)
+            {
+                command = AppBrain.brain.OpenBreaker;
+            }
+            if ((bool)CloseBreakerRadioButton.IsChecked)
             {
                 command = AppBrain.brain.CloseBreaker;
             }
@@ -99,10 +105,29 @@ namespace ServerApplication
 
             var responseString = await AppBrain.brain.HttpClient.GetStringAsync("http://169.254.130.91:8000/" + command);
 
-            if ((bool)TestBreakerRadioButton.IsChecked)
+            string[] log = File.ReadAllLines(AppBrain.brain.LogFile);
+
+            List<string> logs = new List<string>(log);
+
+            DateTime time = DateTime.Now;
+
+            string format = "HH:mm MM/dd/yyyy";
+
+            time.ToString(format);
+
+            string newLogEntry;
+
+            foreach (string[] parent in breakerParents)
             {
-                var secondResponse = await AppBrain.brain.HttpClient.GetStringAsync("http://169.254.130.91:8000/breakerOpen/");
+                newLogEntry = AppBrain.brain.Username + "," + command + "," + time + "," + parent[2] + "," +
+                                     parent[3] + "," + parent[4] + "," + parent[5];
+
+                logs.Add(newLogEntry);
             }
+
+            log = logs.ToArray();
+
+            File.WriteAllLines(AppBrain.brain.LogFile, log);
 
             //foreach (CircuitBreaker breaker in circuitBreakers)
             //{
@@ -216,6 +241,11 @@ namespace ServerApplication
         private void Estop(object sender, RoutedEventArgs e)
         {
             SendCommands(AppBrain.brain.EStop);
+        }
+
+        private void Refresh(object sender, RoutedEventArgs e)
+        {
+            SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(SiteConfigurationTreeView);
         }
     }
 }

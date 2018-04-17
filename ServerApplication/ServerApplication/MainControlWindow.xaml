@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerApplication"
         mc:Ignorable="d"
-        Title="MainControlWindow" Height="900" Width="1600">
+        Title="MainControlWindow" Height="900" Width="1600"
+        WindowState="Maximized"
+        WindowStyle="None">
     <Grid>
         <TextBlock x:Name="MainControlWindowTitle" HorizontalAlignment="Left" Margin="1280,10,0,0" TextWrapping="Wrap" Text="MAIN CONTROL WINDOW" VerticalAlignment="Top" Height="40" Width="302" FontSize="24" TextAlignment="Center"/>
         <TextBlock x:Name="LoggedInAsLabel" HorizontalAlignment="Left" Margin="1280,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="302" FontSize="20" Text="Logged In As"/>
@@ -14,5 +16,6 @@
         <Button x:Name="ManageAccountButton" Content="Manage Account" HorizontalAlignment="Left" Margin="1280,175,0,0" VerticalAlignment="Top" Width="140" Height="25" FontSize="16" Click="ManageAccount"/>
         <Button x:Name="ManageSiteConfigurationButton" Content="Manage Site Configuration" HorizontalAlignment="Left" Margin="320,160,0,0" VerticalAlignment="Top" Width="255" Height="40" FontSize="20" Click="SiteConfiguration"/>
         <Button x:Name="ManageSwitchgearsWindowButton" Content="View/Manage Switchgears" HorizontalAlignment="Left" Margin="320,245,0,0" VerticalAlignment="Top" Width="255" Height="40" FontSize="20" Click="SwitchgearManagement"/>
+        <Button x:Name="ViewLogsButton" Content="View Logs" HorizontalAlignment="Left" Margin="320,333,0,0" VerticalAlignment="Top" Width="255" Height="40" FontSize="20" Click="ViewLogs"/>
     </Grid>
 </Window>

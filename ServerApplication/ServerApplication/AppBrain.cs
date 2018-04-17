@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -21,6 +20,7 @@ namespace ServerApplication
 
         private string userCredentialsFile = "Q:\\GitHub\\SD2\\ServerApplication\\ServerApplication\\ValidCredentials.csv";
         private string siteConfigurationFile = "Q:\\GitHub\\SD2\\ServerApplication\\ServerApplication\\SiteConfiguration.csv";
+        private string logFile = "Q:\\GitHub\\SD2\\ServerApplication\\ServerApplication\\Log.csv";
 
         private HttpClient httpClient = new HttpClient();
 
@@ -28,8 +28,8 @@ namespace ServerApplication
 
         private string rackin = "rackin/";
         private string rackout = "rackout/";
-        private string openBreaker = "openBreaker/";
-        private string closeBreaker = "closeBreaker/";
+        private string openBreaker = "breakerOpen/";
+        private string closeBreaker = "breakerClose/";
         private string eStop = "estop/";
 
         private MainControlWindow mcw;
@@ -75,22 +75,27 @@ namespace ServerApplication
                 }
             }
 
-            if (AppBrain.brain.mscw != null)
-            {
-                Application.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    AppBrain.brain.mscw.SiteConfigurationTreeView = new TreeView();
-                    AppBrain.brain.mscw.SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(AppBrain.brain.mscw.SiteConfigurationTreeView);
-                });
-            }
-            else if (AppBrain.brain.msgw != null)
-            {
-                Application.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    AppBrain.brain.msgw.SiteConfigurationTreeView = new TreeView();
-                    AppBrain.brain.msgw.SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(AppBrain.brain.msgw.SiteConfigurationTreeView);
-                });
-            }
+            //if (statusUpdated)
+            //{
+            //    statusUpdated = false;
+            //
+            //    if (AppBrain.brain.mscw != null)
+            //    {
+            //        Application.Current.Dispatcher.Invoke((Action)delegate
+            //        {
+            //            AppBrain.brain.mscw.SiteConfigurationTreeView = new TreeView();
+            //            AppBrain.brain.mscw.SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(AppBrain.brain.mscw.SiteConfigurationTreeView);
+            //        });
+            //    }
+            //    else if (AppBrain.brain.msgw != null)
+            //    {
+            //        Application.Current.Dispatcher.Invoke((Action)delegate
+            //        {
+            //            AppBrain.brain.msgw.SiteConfigurationTreeView = new TreeView();
+            //            AppBrain.brain.msgw.SiteConfigurationTreeView = AppBrain.brain.PopulateSiteConfiguration(AppBrain.brain.msgw.SiteConfigurationTreeView);
+            //        });
+            //    }
+            //}
         }
 
         // Populates the site configuration on the left side of the window
@@ -294,5 +299,6 @@ namespace ServerApplication
         public ManageAccountWindow Maw { get => maw; set => maw = value; }
         public ManageSiteConfigurationWindow Mscw { get => mscw; set => mscw = value; }
         public ManageSwitchgearsWindow Msgw { get => msgw; set => msgw = value; }
+        public string LogFile { get => logFile; set => logFile = value; }
     }
 }

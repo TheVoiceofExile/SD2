@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerApplication"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600">
+        Title="MainWindow" Height="900" Width="1600"
+        WindowState="Maximized"
+        WindowStyle="None">
     <Grid>
         <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Margin="725,615,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="LoginAttempt"/>
         <TextBox x:Name="UsernameTextBox" HorizontalAlignment="Left" Height="33" Margin="680,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" FontSize="20"/>

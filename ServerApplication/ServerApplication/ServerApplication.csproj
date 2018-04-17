@@ -59,6 +59,9 @@
     </ApplicationDefinition>
     <Compile Include="CircuitBreaker.cs" />
     <Compile Include="Frame.cs" />
+    <Compile Include="LogWindow.xaml.cs">
+      <DependentUpon>LogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageSiteConfigurationWindow.xaml.cs">
       <DependentUpon>ManageSiteConfigurationWindow.xaml</DependentUpon>
     </Compile>
@@ -67,6 +70,10 @@
     </Compile>
     <Compile Include="Substation.cs" />
     <Compile Include="Switchgear.cs" />
+    <Page Include="LogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainControlWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
